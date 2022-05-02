@@ -1,24 +1,30 @@
-# README
+# <ideas>
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## サイト概要
+### サイトテーマ
+<マンダラートを使ったアイデア発想サイト>
 
-Things you may want to cover:
+### テーマを選んだ理由
+<本を読んだ内容でためになりそうなので、インプットとアウトプットができる内容と思ったから。
+受講生にもアイデアを出す際に、ポートフォリオとして終わるのではなくて使ってもらい役立てて貰えると思ったからです。>
 
-* Ruby version
+### ターゲットユーザ
+<アイデアを広げて行きたい人>
+<課題を解決したい人>
 
-* System dependencies
+### 主な利用シーン
+<紙やペンが無い時に、気軽にアイデアを出したい時>
 
-* Configuration
+## 設計書
+<...>
 
-* Database creation
+## 開発環境
+- OS：Linux(CentOS)
+- 言語：HTML,CSS,JavaScript,Ruby,SQL
+- フレームワーク：Ruby on Rails
+- JSライブラリ：jQuery
+- IDE：Cloud9
 
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+## 使用素材
+-
+-
