@@ -16,7 +16,7 @@
 <紙やペンが無い時に、気軽にアイデアを出したい時>
 
 ## 設計書
-<...>
+<https://drive.google.com/file/d/1ngq_-MoSMJQi2pxsmWpdGKBUWFU6fWyk/view?usp=sharing>
 
 ## 開発環境
 - OS：Linux(CentOS)
