@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 
 class Users::RegistrationsController < Devise::RegistrationsController
+
+  before_action :authenticate_user!
+
   # before_action :configure_sign_up_params, only: [:create]
   # before_action :configure_account_update_params, only: [:update]
 
@@ -37,6 +40,16 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # def cancel
   #   super
   # end
+  
+  # 会員の更新の記述
+  def profile_update
+    current_user.assign_attributes(account_update_params)
+    if current_user.save
+      redirect_to edit_user_registration_path, notice: "ユーザー情報を更新しました"
+    else
+      render "profile_edit"
+    end
+  end
 
    protected
 

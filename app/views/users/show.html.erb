@@ -1,23 +1,23 @@
-<div class="container">
-  <h2><span class="bg-light">マイページ</span></h2>
+<div class="container-fluid registration py-5">
   <div class="row">
-    <div class="col-md-8 mt-3">
-      <div class="row mt-3">
-        <div class="offset-7 col-4">
-          <div class="form-group">
-            <b><h4>ニックネーム</h4></b>
-            <%= @user.name %>
-          </div>
-          <div class="form-group">
-            <b><h4>メールアドレス</h4></b>
-            <%= @user.email %>
-          </div>
-          <div class="form-group">
-            <% if user_signed_in? && @user == current_user %>
-              <%= link_to "アカウント情報編集", edit_user_registration_path, class: "btn btn-success" %>
-            <% end %>
-          </div>
-        </div>
-    </div>
+    <div class="offset-1">
+    <h2>マイページ</h2>
   </div>
 </div>
+  <div class="row mt-3">
+    <div class="offset-5 col-4">
+      <div class="form-group">
+        <b><h4>ニックネーム</h4></b>
+        <%= @user.name %>
+      </div>
+      <div class="form-group">
+        <b><h4>メールアドレス</h4></b>
+        <%= @user.email %>
+      </div>
+      <div class="form-group">
+        <% if user_signed_in? && @user == current_user %>
+          <%= link_to "アカウント情報編集", edit_user_registration_path, class: "btn btn-success" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
