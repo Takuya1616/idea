@@ -1,0 +1,2 @@
+class SquarePosition < ApplicationRecord
+end

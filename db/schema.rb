@@ -10,12 +10,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_05_09_124133) do
+ActiveRecord::Schema.define(version: 2022_05_11_125747) do
+
+  create_table "management_squares", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "square_id"
+    t.integer "parent_square_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
   create_table "squares", force: :cascade do |t|
-    t.integer "position"
-    t.integer "parent_square_id", null: false
-    t.string "idea"
+    t.string "row_1"
+    t.string "row_2"
+    t.string "row_3"
+    t.string "row_4"
+    t.string "row_5"
+    t.string "row_6"
+    t.string "row_7"
+    t.string "row_8"
+    t.string "row_9"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -26,9 +40,9 @@ ActiveRecord::Schema.define(version: 2022_05_09_124133) do
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
+    t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "name"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
