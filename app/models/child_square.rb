@@ -1,0 +1,2 @@
+class ChildSquare < ApplicationRecord
+end

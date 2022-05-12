@@ -1,0 +1,2 @@
+class ParentSquare < ApplicationRecord
+end

@@ -10,17 +10,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_05_11_125747) do
+ActiveRecord::Schema.define(version: 2022_05_12_131046) do
 
-  create_table "management_squares", force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "square_id"
+  create_table "child_squares", force: :cascade do |t|
     t.integer "parent_square_id"
+    t.integer "position"
+    t.string "row_1"
+    t.string "row_2"
+    t.string "row_3"
+    t.string "row_4"
+    t.string "row_5"
+    t.string "row_6"
+    t.string "row_7"
+    t.string "row_8"
+    t.string "row_9"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "squares", force: :cascade do |t|
+  create_table "parent_squares", force: :cascade do |t|
+    t.integer "user_id"
     t.string "row_1"
     t.string "row_2"
     t.string "row_3"
