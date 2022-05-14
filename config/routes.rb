@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
-  resources :squares, only:[:index, :new, :create, :show, :edit, :update, :destroy]
+
+  resources :parent_squares, only:[:index, :new, :create, :show, :edit, :update, :destroy] do
+    resources :child_square
+  end
   root to: "homes#top"
   get "/about"=>'homes#about'
   devise_for :users, controllers: { sessions: "users/sessions",

@@ -1,0 +1,63 @@
+<div class="container-fluid registration py-5">
+  <div class="row">
+    <div class="offset-1">
+    <h2>センター</h2>
+  </div>
+</div>
+ <%= form_with model: @square, id: 'form' do |f| %>
+<div class="d-flex justify-content-center">
+  <div class="">
+    <%= link_to '←', show_parent_square_child_square_path(@square.id, position: 1) %>
+    <%= f.text_area :row_1 %>
+  </div>
+  <div class=""><%= f.text_area :row_2 %></div>
+  <div class=""><%= f.text_area :row_3 %></div>
+</div>
+<div class="d-flex justify-content-center">
+  <div class=""><%= f.text_area :row_4 %></div>
+  <div class=""><textarea disabled><%= @square.row_5 %></textarea></div><!--真ん中のマス-->
+  <div class=""><%= f.text_area :row_6 %></div>
+</div>
+<div class="d-flex justify-content-center">
+  <div class=""><%= f.text_area :row_7 %></div>
+  <div class=""><%= f.text_area :row_8 %></div>
+  <div class=""><%= f.text_area :row_9 %></div>
+</div>
+<% end %>
+
+<script>
+const form = document.getElementById('form');
+const token = document.getElementsByName(
+  "csrf-token"
+)[0].content;
+
+form.addEventListener('focusout', (event) => {
+    const post_data = {
+      'id': <%= params[:id] %>,
+      'parent_square': {
+        'row_1': document.getElementById('parent_square_row_1').value,
+        'row_2': document.getElementById('parent_square_row_2').value,
+        'row_3': document.getElementById('parent_square_row_3').value,
+        'row_4': document.getElementById('parent_square_row_4').value,
+        'row_6': document.getElementById('parent_square_row_6').value,
+        'row_7': document.getElementById('parent_square_row_7').value,
+        'row_8': document.getElementById('parent_square_row_8').value,
+        'row_9': document.getElementById('parent_square_row_9').value
+      }
+    };
+    fetch('/parent_squares', {
+      method: 'POST',
+      credentials: 'same-origin',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRF-Token': token
+      },
+      body: JSON.stringify(post_data),
+    })
+    .then(function(response){
+      const response_message = response.status + ':' + response.statusText
+      console.log(response_message);
+
+    });
+});
+</script>

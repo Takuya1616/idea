@@ -6,7 +6,6 @@ class SquaresController < ApplicationController
   end
 
   def index
-    @square = Square.new
   end
 
   def create
@@ -18,11 +17,11 @@ class SquaresController < ApplicationController
       render 'index'
     end
   end
-  
+
   def update
     @parent_suqare.update(row_〇)
     @child_suqare.create(parent_square_id: @parent_suquare, position:〇,  row_5: <>)
-    
+
     redirect_to @child_square
   end
 

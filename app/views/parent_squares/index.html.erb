@@ -1,0 +1,27 @@
+<div class="container-fluid registration py-5">
+  <div class="row">
+    <div class="offset-1">
+    <h2>アイデア一覧</h2>
+  </div>
+</div>
+<table class="table">
+  <thead>
+    <tr>
+      <th>メインテーマ</th>
+      <th>作成日時</th>
+      <%= form_with model: @square do |f| %>
+      <th>新しいアイデアを作成する<%= f.text_field :row_5 %>
+      <span><%= f.submit '作成' %></span>
+      </th>
+      <% end %>
+    </tr>
+  </thead>
+  <tbody>
+    <%# @squares.each do |squares| %>
+    <tr>
+      <th scope="row"><%#= @parent_spuare.row_5 %></th>
+      <td></td>
+    </tr>
+    <%# end %>
+  </tbody>
+</table>
