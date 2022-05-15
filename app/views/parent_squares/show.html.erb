@@ -7,7 +7,7 @@
  <%= form_with model: @square, id: 'form' do |f| %>
 <div class="d-flex justify-content-center">
   <div class="">
-    <%= link_to '←', show_parent_square_child_square_path(@square.id, position: 1) %>
+    <%= link_to '←', parent_square_child_square_path(@square.id, position: 1) %>
     <%= f.text_area :row_1 %>
   </div>
   <div class=""><%= f.text_area :row_2 %></div>
