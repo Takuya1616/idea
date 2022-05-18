@@ -4,7 +4,9 @@ class ParentSquaresController < ApplicationController
 
   def index
     @parent_square = ParentSquare.new
-    @parent_squares = ParentSquare.all
+    @parent_squares = current_user.parent_squares.order('created_at DESC')
+    @parent_squares = ParentSquare.page(params[:page]).per(10).order('updated_at DESC')
+    @parent_squares = current_user.parent_squares.page(params[:page]).per(10).order('updated_at DESC')
   end
 
   def show
@@ -29,16 +31,15 @@ class ParentSquaresController < ApplicationController
   end
 
   def update
-    @child_square = ChildSquare.find(params[:id])
     @parent_square = ParentSquare.find(params[:id])
     # row_5_value = params[:row_5]
     # @child_square = ChildSquare.new
      if @parent_square.update(parent_square_params)
-    #   @child_square = ChildSquare.create(parent_square_id: @parent_square, position: 1,  row_5: row_5_value)
+        parent_square_rows = ParentSquare.select('row_1, row_2, row_3, row_4, row_6, row_7, row_8, row_9').find(params[:id]).attributes.values
+        @parent_square.child_squares.each_with_index do |child_square, index|
+          child_square.update(row_5: parent_square_rows[index])
+        end
      redirect_to request.referer
-     end
-     if @child_square.update(child_square_params)
-       redirect_to request.referer
      end
   end
 
@@ -48,12 +49,14 @@ class ParentSquaresController < ApplicationController
    private
 
   def parent_square_params
-    params.require(:parent_square).permit(:row_1, :row_2, :row_3, :row_4, :row_5, :row_6, :row_7, :row_8, :row_9)
+    params.require(:parent_square).permit(:row_1, :row_2, :row_3, :row_4, :row_5, :row_6, :row_7, :row_8, :row_9,
+    child_squares_attributes: [:row_1, :row_2, :row_3, :row_4, :row_6, :row_7, :row_8, :row_9, :position, :_destroy, :id]
+    )
   end
 
-   def child_square_params
-     params.require(:child_square).permit(:row_1, :row_2, :row_3, :row_4, :row_5, :row_6, :row_7, :row_8, :row_9, :position)
-   end
+  def child_square_params
+    params.require(:child_square).permit(:row_1, :row_2, :row_3, :row_4, :row_5, :row_6, :row_7, :row_8, :row_9, :position)
+  end
 
 
 end

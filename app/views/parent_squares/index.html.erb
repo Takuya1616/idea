@@ -9,6 +9,7 @@
     <tr>
       <th>メインテーマ</th>
       <th>作成日時</th>
+      <th>お気に入り</th>
       <th>
         <%= form_with model: @parent_square do |f| %>
         新しいアイデアを作成する<%= f.text_field :row_5 %>
@@ -20,9 +21,15 @@
   <tbody>
     <% @parent_squares.each do |parent_squares| %>
     <tr>
-      <th scope="row"><%= link_to parent_squares.row_5, parent_square_path(parent_squares.id) %></th>
+      <td scope="row"><%= link_to parent_squares.row_5, parent_square_path(parent_squares.id) %></td>
       <td><%= parent_squares.created_at.strftime('%Y/%m/%d') %></td>
-    </tr>
+        <% if @favorite.favorite_by?(current_user) %>
+        <td><%= link_to "ブックマークを外す", parent_square_favorites_path(@favorite), method: :delete %></td>
+        <% else %>
+        <td><%= link_to "ブックマーク", parent_square_favorites_path(@favorite), method: :post %></td>
+        <% end %>
+      </tr>
     <% end %>
+    <%= paginate @parent_squares %>
   </tbody>
 </table>
