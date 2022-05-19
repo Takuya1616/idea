@@ -1,6 +1,6 @@
 require "test_helper"
 
-class SquareTest < ActiveSupport::TestCase
+class ParentSquareTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end
