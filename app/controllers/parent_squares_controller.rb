@@ -44,6 +44,9 @@ class ParentSquaresController < ApplicationController
   end
 
   def destroy
+    @parent_square = ParentSquare.find(params[:id])
+    @parent_square.destroy
+     redirect_to request.referer
   end
 
    private

@@ -23,11 +23,12 @@
     <tr>
       <td scope="row"><%= link_to parent_squares.row_5, parent_square_path(parent_squares.id) %></td>
       <td><%= parent_squares.created_at.strftime('%Y/%m/%d') %></td>
-        <% if @favorite.favorite_by?(current_user) %>
-        <td><%= link_to "ブックマークを外す", parent_square_favorites_path(@favorite), method: :delete %></td>
-        <% else %>
-        <td><%= link_to "ブックマーク", parent_square_favorites_path(@favorite), method: :post %></td>
-        <% end %>
+        <%# if @favorite.favorited_by?(current_user) %>
+        <td><%#= link_to "ブックマークを外す", parent_square_favorites_path(parent_squares), method: :delete %></td>
+        <%# else %>
+        <td><%#= link_to "ブックマーク", parent_square_favorites_path(parent_squares), method: :post %></td>
+        <%# end %>
+        <td><%= link_to "削除", parent_square_path(parent_squares.id), method: :delete, "data-confirm" => "本当に削除しますか？" %></td>
       </tr>
     <% end %>
     <%= paginate @parent_squares %>
