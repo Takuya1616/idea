@@ -11,7 +11,6 @@ class FavoritesController < ApplicationController
   def destroy
     @parent_square = ParentSquare.find(params[:parent_square_id])
     favorite = current_user.favorites.find_by(parent_square_id: @parent_square.id)
-    favorite.present?
     favorite.destroy
   end
 end

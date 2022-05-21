@@ -23,19 +23,9 @@
     <tr>
       <td scope="row"><%= link_to parent_square.row_5, parent_square_path(parent_square.id) %></td>
       <td><%= parent_square.created_at.strftime('%Y/%m/%d') %></td>
-        <% if parent_square.favorited_by?(current_user) %>
-        <td>
-          <%= link_to "ブックマークを外す", parent_square_favorites_path(parent_square), method: :delete, remote: true do %>
-            <i class="fas fa-star"></i>
-          <% end %>
-        </td>
-        <% else %>
-        <td>
-          <%= link_to "ブックマーク", parent_square_favorites_path(parent_square), method: :post, remote: true do %>
-            <i class="fas fa-star"></i>
-          <% end %>
-        </td>
-        <% end %>
+      <td>
+        <%= render 'favorites/favorite-btn', parent_square: parent_square %>
+      </td>
         <td><%= link_to "削除", parent_square_path(parent_square.id), method: :delete, "data-confirm" => "本当に削除しますか？" %></td>
       </tr>
     <% end %>

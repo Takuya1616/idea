@@ -38,8 +38,8 @@ class ParentSquaresController < ApplicationController
         parent_square_rows = ParentSquare.select('row_1, row_2, row_3, row_4, row_6, row_7, row_8, row_9').find(params[:id]).attributes.values
         @parent_square.child_squares.each_with_index do |child_square, index|
           child_square.update(row_5: parent_square_rows[index])
+          flash.now[:notice] = 'セーブしました'
         end
-     redirect_to request.referer
      end
   end
 
