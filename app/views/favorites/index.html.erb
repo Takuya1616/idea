@@ -1,7 +1,7 @@
 <div class="container-fluid registration py-5">
   <div class="row">
     <div class="offset-1">
-    <h2>アイデア一覧</h2>
+    <h2>お気に入り一覧</h2>
   </div>
 </div>
 <table class="table">
@@ -11,24 +11,20 @@
       <th>作成日時</th>
       <th>お気に入り</th>
       <th>
-        <%= form_with model: @parent_square do |f| %>
-        新しいアイデアを作成する<%= f.text_field :row_5 %>
-        <span><%= f.submit '作成', class: "btn-sm btn-success" %></span>
-        <% end %>
-      </th>
     </tr>
   </thead>
   <tbody>
-    <% @parent_squares.each do |parent_square| %>
     <tr>
+    <% if @favorite_list.present? %>
+    <% @favorite_list.each do |parent_square| %>
       <td scope="row"><%= link_to parent_square.row_5, parent_square_path(parent_square.id) %></td>
       <td><%= parent_square.created_at.strftime('%Y/%m/%d') %></td>
       <td id="favorite-btn-<%= parent_square.id %>">
         <%= render 'favorites/favorite-btn', parent_square: parent_square %>
       </td>
-        <td><%= link_to "削除", parent_square_path(parent_square.id), method: :delete, "data-confirm" => "本当に削除しますか？", class: "btn btn-danger" %></td>
-      </tr>
+      <td><%= link_to "削除", parent_square_path(parent_square.id), method: :delete, "data-confirm" => "本当に削除しますか？", class: "btn btn-danger" %></td>
+    </tr>
     <% end %>
-    <%= paginate @parent_squares %>
+    <% end %>
   </tbody>
 </table>
