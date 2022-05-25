@@ -1,0 +1,13 @@
+<% if parent_square.favorited_by?(current_user) %>
+  <div class="favorite-btn">
+    <%= link_to parent_square_favorites_path(parent_square), method: :delete, remote: true do %>
+      <i class="fas fa-star"></i>
+    <% end %>
+  </div>
+<% else %>
+  <div class="favorite-btn">
+    <%= link_to parent_square_favorites_path(parent_square), method: :post, remote: true do %>
+      <i class="far fa-star"></i>
+    <% end %>
+  </div>
+<% end %>
