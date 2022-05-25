@@ -12,7 +12,7 @@
       <th>お気に入り</th>
       <th>
         <%= form_with model: @parent_square do |f| %>
-        新しいアイデアを作成する<%= f.text_field :row_5 %>
+        新しいアイデアを作成する<%= f.text_field :row_5, placeholder: "メインテーマを入力" %>
         <span><%= f.submit '作成', class: "btn-sm btn-success" %></span>
         <% end %>
       </th>
