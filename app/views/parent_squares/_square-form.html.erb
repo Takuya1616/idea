@@ -44,190 +44,98 @@
 <% end %>
 
 <script>
-  var squares_texts = ""
-  init();
-  //初期化処理
-  function init()
-  {
-    squares_texts = JSON.stringify({
-        'id': <%= params[:id] %>,
-        'parent_square': {
-          'row_1': document.getElementById('parent_square_row_1').value,
-          'row_2': document.getElementById('parent_square_row_2').value,
-          'row_3': document.getElementById('parent_square_row_3').value,
-          'row_4': document.getElementById('parent_square_row_4').value,
-          'row_6': document.getElementById('parent_square_row_6').value,
-          'row_7': document.getElementById('parent_square_row_7').value,
-          'row_8': document.getElementById('parent_square_row_8').value,
-          'row_9': document.getElementById('parent_square_row_9').value
+  $(document).on('turbolinks:load', function () {
+    var squares_texts = ""
+    init();
+    //初期化処理
+    function init()
+    {
+      squares_texts = JSON.stringify({
+          'id': <%= params[:id] %>,
+          'parent_square': {
+            'row_1': document.getElementById('parent_square_row_1').value,
+            'row_2': document.getElementById('parent_square_row_2').value,
+            'row_3': document.getElementById('parent_square_row_3').value,
+            'row_4': document.getElementById('parent_square_row_4').value,
+            'row_6': document.getElementById('parent_square_row_6').value,
+            'row_7': document.getElementById('parent_square_row_7').value,
+            'row_8': document.getElementById('parent_square_row_8').value,
+            'row_9': document.getElementById('parent_square_row_9').value
+          }
+        });
+
+      console.log("hoge");
+      $($('.square_wrapper')[4]).after($('.square_wrapper')[0]);
+      $(".square_wrapper").each(function(i, elem) {
+        switch (i) {
+          case 0:
+          case 1:
+          case 2:
+            $($('.square_wrapper_parent')[0]).append($(elem));
+            break;
+          case 3:
+          case 4:
+          case 5:
+            $($('.square_wrapper_parent')[1]).append($(elem));
+            break;
+
+          case 6:
+          case 7:
+          case 8:
+            $($('.square_wrapper_parent')[2]).append($(elem));
+            break;
         }
       });
+    }
 
-    console.log("hoge");
-    $($('.square_wrapper')[4]).after($('.square_wrapper')[0]);
-    $(".square_wrapper").each(function(i, elem) {
-      switch (i) {
-        case 0:
-        case 1:
-        case 2:
-          $($('.square_wrapper_parent')[0]).append($(elem));
-          break;
-        case 3:
-        case 4:
-        case 5:
-          $($('.square_wrapper_parent')[1]).append($(elem));
-          break;
+    const form = document.getElementById('form');
+    const token = document.getElementsByName(
+      "csrf-token"
+    )[0].content;
 
-        case 6:
-        case 7:
-        case 8:
-          $($('.square_wrapper_parent')[2]).append($(elem));
-          break;
-      }
+    form.addEventListener('focusout', (event) => {
+
+        if (event.target.value.length != 0){
+          const post_data = JSON.stringify({
+          'id': <%= params[:id] %>,
+          'parent_square': {
+            'row_1': document.getElementById('parent_square_row_1').value,
+            'row_2': document.getElementById('parent_square_row_2').value,
+            'row_3': document.getElementById('parent_square_row_3').value,
+            'row_4': document.getElementById('parent_square_row_4').value,
+            'row_6': document.getElementById('parent_square_row_6').value,
+            'row_7': document.getElementById('parent_square_row_7').value,
+            'row_8': document.getElementById('parent_square_row_8').value,
+            'row_9': document.getElementById('parent_square_row_9').value,
+
+          }
+        });
+        console.log(post_data == squares_texts, post_data , squares_texts);
+          if (post_data == squares_texts) {
+            return false;
+          }
+          //下の一行をコメントアウトでフォーカスアウトによる通信が走る
+          // return false;
+          const id = <%= params[:id] %>
+          squares_texts = post_data;
+          fetch(`/parent_squares/${id}`, {
+            method: 'PUT',
+            credentials: 'same-origin',
+            headers: {
+              'Content-Type': 'application/json',
+              'X-CSRF-Token': token
+            },
+            body: post_data,
+          })
+          .then(function(response){
+            const response_message = response.status + ':' + response.statusText
+            console.log(response_message);
+
+          })
+          .catch(function() {
+          });
+        }
     });
-  }
-
-  const form = document.getElementById('form');
-  const token = document.getElementsByName(
-    "csrf-token"
-  )[0].content;
-
-  form.addEventListener('focusout', (event) => {
-      const post_data = JSON.stringify({
-        'id': <%= params[:id] %>,
-        'parent_square': {
-          'row_1': document.getElementById('parent_square_row_1').value,
-          'row_2': document.getElementById('parent_square_row_2').value,
-          'row_3': document.getElementById('parent_square_row_3').value,
-          'row_4': document.getElementById('parent_square_row_4').value,
-          'row_6': document.getElementById('parent_square_row_6').value,
-          'row_7': document.getElementById('parent_square_row_7').value,
-          'row_8': document.getElementById('parent_square_row_8').value,
-          'row_9': document.getElementById('parent_square_row_9').value,
-          'child_squares_attributes': [
-            [
-              'id': document.getElementById('parent_square_child_squares_attributes_0_id').value,
-              'row_1': document.getElementById('parent_square_child_squares_attributes_0_row_1').value,
-              'row_2': document.getElementById('parent_square_child_squares_attributes_0_row_2').value,
-              'row_3': document.getElementById('parent_square_child_squares_attributes_0_row_3').value,
-              'row_4': document.getElementById('parent_square_child_squares_attributes_0_row_4').value,
-              'row_6': document.getElementById('parent_square_child_squares_attributes_0_row_6').value,
-              'row_7': document.getElementById('parent_square_child_squares_attributes_0_row_7').value,
-              'row_8': document.getElementById('parent_square_child_squares_attributes_0_row_8').value,
-              'row_9': document.getElementById('parent_square_child_squares_attributes_0_row_9').value
-            ],
-            [
-              'id': document.getElementById('parent_square_child_squares_attributes_1_id').value,
-              'row_1': document.getElementById('parent_square_child_squares_attributes_1_row_1').value,
-              'row_2': document.getElementById('parent_square_child_squares_attributes_1_row_2').value,
-              'row_3': document.getElementById('parent_square_child_squares_attributes_1_row_3').value,
-              'row_4': document.getElementById('parent_square_child_squares_attributes_1_row_4').value,
-              'row_6': document.getElementById('parent_square_child_squares_attributes_1_row_6').value,
-              'row_7': document.getElementById('parent_square_child_squares_attributes_1_row_7').value,
-              'row_8': document.getElementById('parent_square_child_squares_attributes_1_row_8').value,
-              'row_9': document.getElementById('parent_square_child_squares_attributes_1_row_9').value
-            ],
-            [
-              'id': document.getElementById('parent_square_child_squares_attributes_2_id').value,
-              'row_1': document.getElementById('parent_square_child_squares_attributes_2_row_1').value,
-              'row_2': document.getElementById('parent_square_child_squares_attributes_2_row_2').value,
-              'row_3': document.getElementById('parent_square_child_squares_attributes_2_row_3').value,
-              'row_4': document.getElementById('parent_square_child_squares_attributes_2_row_4').value,
-              'row_6': document.getElementById('parent_square_child_squares_attributes_2_row_6').value,
-              'row_7': document.getElementById('parent_square_child_squares_attributes_2_row_7').value,
-              'row_8': document.getElementById('parent_square_child_squares_attributes_2_row_8').value,
-              'row_9': document.getElementById('parent_square_child_squares_attributes_2_row_9').value
-            ],
-            [
-              'id': document.getElementById('parent_square_child_squares_attributes_3_id').value,
-              'row_1': document.getElementById('parent_square_child_squares_attributes_3_row_1').value,
-              'row_2': document.getElementById('parent_square_child_squares_attributes_3_row_2').value,
-              'row_3': document.getElementById('parent_square_child_squares_attributes_3_row_3').value,
-              'row_4': document.getElementById('parent_square_child_squares_attributes_3_row_4').value,
-              'row_6': document.getElementById('parent_square_child_squares_attributes_3_row_6').value,
-              'row_7': document.getElementById('parent_square_child_squares_attributes_3_row_7').value,
-              'row_8': document.getElementById('parent_square_child_squares_attributes_3_row_8').value,
-              'row_9': document.getElementById('parent_square_child_squares_attributes_3_row_9').value
-            ],
-            [
-              'id': document.getElementById('parent_square_child_squares_attributes_4_id').value,
-              'row_1': document.getElementById('parent_square_child_squares_attributes_4_row_1').value,
-              'row_2': document.getElementById('parent_square_child_squares_attributes_4_row_2').value,
-              'row_3': document.getElementById('parent_square_child_squares_attributes_4_row_3').value,
-              'row_4': document.getElementById('parent_square_child_squares_attributes_4_row_4').value,
-              'row_6': document.getElementById('parent_square_child_squares_attributes_4_row_6').value,
-              'row_7': document.getElementById('parent_square_child_squares_attributes_4_row_7').value,
-              'row_8': document.getElementById('parent_square_child_squares_attributes_4_row_8').value,
-              'row_9': document.getElementById('parent_square_child_squares_attributes_4_row_9').value
-            ],
-            [
-              'id': document.getElementById('parent_square_child_squares_attributes_6_id').value,
-              'row_1': document.getElementById('parent_square_child_squares_attributes_6_row_1').value,
-              'row_2': document.getElementById('parent_square_child_squares_attributes_6_row_2').value,
-              'row_3': document.getElementById('parent_square_child_squares_attributes_6_row_3').value,
-              'row_4': document.getElementById('parent_square_child_squares_attributes_6_row_4').value,
-              'row_6': document.getElementById('parent_square_child_squares_attributes_6_row_6').value,
-              'row_7': document.getElementById('parent_square_child_squares_attributes_6_row_7').value,
-              'row_8': document.getElementById('parent_square_child_squares_attributes_6_row_8').value,
-              'row_9': document.getElementById('parent_square_child_squares_attributes_6_row_9').value
-            ],
-            [
-              'id': document.getElementById('parent_square_child_squares_attributes_7_id').value,
-              'row_1': document.getElementById('parent_square_child_squares_attributes_7_row_1').value,
-              'row_2': document.getElementById('parent_square_child_squares_attributes_7_row_2').value,
-              'row_3': document.getElementById('parent_square_child_squares_attributes_7_row_3').value,
-              'row_4': document.getElementById('parent_square_child_squares_attributes_7_row_4').value,
-              'row_6': document.getElementById('parent_square_child_squares_attributes_7_row_6').value,
-              'row_7': document.getElementById('parent_square_child_squares_attributes_7_row_7').value,
-              'row_8': document.getElementById('parent_square_child_squares_attributes_7_row_8').value,
-              'row_9': document.getElementById('parent_square_child_squares_attributes_7_row_9').value
-            ],
-            [
-              'id': document.getElementById('parent_square_child_squares_attributes_8_id').value,
-              'row_1': document.getElementById('parent_square_child_squares_attributes_8_row_1').value,
-              'row_2': document.getElementById('parent_square_child_squares_attributes_8_row_2').value,
-              'row_3': document.getElementById('parent_square_child_squares_attributes_8_row_3').value,
-              'row_4': document.getElementById('parent_square_child_squares_attributes_8_row_4').value,
-              'row_6': document.getElementById('parent_square_child_squares_attributes_8_row_6').value,
-              'row_7': document.getElementById('parent_square_child_squares_attributes_8_row_7').value,
-              'row_8': document.getElementById('parent_square_child_squares_attributes_8_row_8').value,
-              'row_9': document.getElementById('parent_square_child_squares_attributes_8_row_9').value
-            ],
-            [
-              'id': document.getElementById('parent_square_child_squares_attributes_9_id').value,
-              'row_1': document.getElementById('parent_square_child_squares_attributes_9_row_1').value,
-              'row_2': document.getElementById('parent_square_child_squares_attributes_9_row_2').value,
-              'row_3': document.getElementById('parent_square_child_squares_attributes_9_row_3').value,
-              'row_4': document.getElementById('parent_square_child_squares_attributes_9_row_4').value,
-              'row_6': document.getElementById('parent_square_child_squares_attributes_9_row_6').value,
-              'row_7': document.getElementById('parent_square_child_squares_attributes_9_row_7').value,
-              'row_8': document.getElementById('parent_square_child_squares_attributes_9_row_8').value,
-              'row_9': document.getElementById('parent_square_child_squares_attributes_9_row_9').value
-            ]
-          ]
-        }
-      });
-      console.log(post_data == squares_texts, post_data , squares_texts);
-      if (post_data == squares_texts) {
-        return false;
-      }
-      //下の一行をコメントアウトでフォーカスアウトによる通信が走る
-      // return false;
-      squares_texts = post_data;
-      fetch('/parent_squares', {
-        method: 'POST',
-        credentials: 'same-origin',
-        headers: {
-          'Content-Type': 'application/json',
-          'X-CSRF-Token': token
-        },
-        body: post_data,
-      })
-      .then(function(response){
-        const response_message = response.status + ':' + response.statusText
-        console.log(response_message);
-
-      });
   });
 
 </script>
