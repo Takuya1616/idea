@@ -1,3 +1,12 @@
+<% if @parent_square.errors.any? %>
+  <div id="error_explanation" class="alert alert-info">
+    <ul>
+      <% @parent_square.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
 <div class="container-fluid registration py-5">
   <div class="row">
     <div class="offset-1">
@@ -12,8 +21,9 @@
       <th>お気に入り</th>
       <th>
         <%= form_with model: @parent_square do |f| %>
-        新しいアイデアを作成する<%= f.text_field :row_5, placeholder: "メインテーマを入力" %>
-        <span><%= f.submit '作成', class: "btn-sm btn-success" %></span>
+          <%= f.label "新しいアイデアを作成する" %>
+          <%= f.text_field :row_5, placeholder: "メインテーマを入力" %>
+          <%= f.submit '作成', class: "btn-sm btn-success" %>
         <% end %>
       </th>
     </tr>

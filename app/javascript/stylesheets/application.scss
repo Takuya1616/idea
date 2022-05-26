@@ -2,7 +2,9 @@
 @import '~@fortawesome/fontawesome-free/scss/fontawesome';
 
 
-
+.field_with_errors {
+  display: contents;
+}
 
 .cube {
   margin: 50px auto 100px;
