@@ -12,9 +12,7 @@ class ChildSquareController < ApplicationController
     @child_square = ChildSquare.find(params[:id])
     if @child_square.update(child_square_params)
        redirect_to request.referer
-     end
-
-
+    end
   end
 
    private

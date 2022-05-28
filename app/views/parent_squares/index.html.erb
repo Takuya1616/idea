@@ -1,3 +1,12 @@
+<% if @parent_square.errors.any? %>
+  <div id="error_explanation" class="alert alert-info">
+    <ul>
+      <% @parent_square.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
 <div class="container-fluid registration py-5">
   <div class="row">
     <div class="offset-1">
@@ -12,23 +21,22 @@
       <th>お気に入り</th>
       <th>
         <%= form_with model: @parent_square do |f| %>
-        新しいアイデアを作成する<%= f.text_field :row_5 %>
-        <span><%= f.submit '作成' %></span>
+          <%= f.label "新しいアイデアを作成する" %>
+          <%= f.text_field :row_5, placeholder: "メインテーマを入力" %>
+          <%= f.submit '作成', class: "btn-sm btn-success" %>
         <% end %>
       </th>
     </tr>
   </thead>
   <tbody>
-    <% @parent_squares.each do |parent_squares| %>
+    <% @parent_squares.each do |parent_square| %>
     <tr>
-      <td scope="row"><%= link_to parent_squares.row_5, parent_square_path(parent_squares.id) %></td>
-      <td><%= parent_squares.created_at.strftime('%Y/%m/%d') %></td>
-        <%# if @favorite.favorited_by?(current_user) %>
-        <td><%#= link_to "ブックマークを外す", parent_square_favorites_path(parent_squares), method: :delete %></td>
-        <%# else %>
-        <td><%#= link_to "ブックマーク", parent_square_favorites_path(parent_squares), method: :post %></td>
-        <%# end %>
-        <td><%= link_to "削除", parent_square_path(parent_squares.id), method: :delete, "data-confirm" => "本当に削除しますか？" %></td>
+      <td scope="row"><%= link_to parent_square.row_5, parent_square_path(parent_square.id) %></td>
+      <td><%= parent_square.created_at.strftime('%Y/%m/%d') %></td>
+      <td id="favorite-btn-<%= parent_square.id %>">
+        <%= render 'favorites/favorite-btn', parent_square: parent_square %>
+      </td>
+        <td><%= link_to "削除", parent_square_path(parent_square.id), method: :delete, "data-confirm" => "本当に削除しますか？", class: "btn btn-danger" %></td>
       </tr>
     <% end %>
     <%= paginate @parent_squares %>

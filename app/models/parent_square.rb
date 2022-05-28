@@ -6,6 +6,7 @@ class ParentSquare < ApplicationRecord
   accepts_nested_attributes_for :child_squares, allow_destroy: true
 
   def favorited_by?(user)
+    pp "id = #{id}"
     favorites.where(user_id: user).exists?
   end
 end

@@ -40,7 +40,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # def cancel
   #   super
   # end
-  
+
   # 会員の更新の記述
   def profile_update
     current_user.assign_attributes(account_update_params)

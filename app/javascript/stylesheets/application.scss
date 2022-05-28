@@ -2,3 +2,65 @@
 @import '~@fortawesome/fontawesome-free/scss/fontawesome';
 
 
+.field_with_errors {
+  display: contents;
+}
+
+.cube {
+  margin: 50px auto 100px;
+  width: 200px;
+  height: 200px;
+  position: relative;
+  transform-style: preserve-3d;
+  transform: rotateX(0) rotateY(0); /* 初期角度 */
+  animation: rotate-anim 8s linear infinite;
+}
+
+
+@keyframes rotate-anim {
+  0% {transform: rotateX(0) rotateY(0); }
+  100% {transform: rotateX(-360deg) rotateY(360deg); }
+}
+
+.cube div {
+
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  font-size: 60px;
+}
+
+
+.cube div:nth-child(1) {
+  background: rgba(255, 127, 127, .8);
+  transform: translateZ(100px);
+}
+
+.cube div:nth-child(2) {
+  background: rgba(255, 127, 255, .8);
+  transform: rotateY(180deg) translateZ(100px);
+}
+
+.cube div:nth-child(3) {
+  background: rgba(127, 127, 255, .8);
+  transform: rotateY(90deg) translateZ(100px);
+}
+
+.cube div:nth-child(4) {
+  background: rgba(127, 255, 255, .8);
+  transform: rotateY(-90deg) translateZ(100px);
+}
+
+.cube div:nth-child(5) {
+  background: rgba(191, 255, 127, .8);
+  transform: rotateX(90deg) translateZ(100px);
+}
+
+.cube div:nth-child(6) {
+  background: rgba(255, 191, 127, .8);
+  transform: rotateX(-90deg) translateZ(100px);
+}
