@@ -1,0 +1,2 @@
+class MaillerContact < ApplicationRecord
+end
