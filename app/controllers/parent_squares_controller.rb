@@ -20,6 +20,7 @@ class ParentSquaresController < ApplicationController
   def create
     @parent_square = ParentSquare.new(parent_square_params)
     @parent_square.user_id = current_user.id
+    @parent_square.score = Language.get_data(parent_square_params[:row_5])
     if @parent_square.save
       8.times do |child_square|
         ChildSquare.create(parent_square_id: @parent_square.id)
