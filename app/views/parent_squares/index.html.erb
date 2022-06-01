@@ -20,6 +20,9 @@
       <th>作成日時</th>
       <th>お気に入り</th>
       <th>
+        <span>テーマ感情分析スコア</span>
+      </th>
+      <th>
         <%= form_with model: @parent_square do |f| %>
           <%= f.label "新しいアイデアを作成する" %>
           <%= f.text_field :row_5, placeholder: "メインテーマを入力" %>
@@ -36,8 +39,9 @@
       <td id="favorite-btn-<%= parent_square.id %>">
         <%= render 'favorites/favorite-btn', parent_square: parent_square %>
       </td>
-        <td><%= link_to "削除", parent_square_path(parent_square.id), method: :delete, "data-confirm" => "本当に削除しますか？", class: "btn btn-danger" %></td>
-      </tr>
+      <td><span class="sentiment-score"><%= parent_square.score %></span></td>
+      <td><%= link_to "削除", parent_square_path(parent_square.id), method: :delete, "data-confirm" => "本当に削除しますか？", class: "btn btn-danger" %></td>
+    </tr>
     <% end %>
     <%= paginate @parent_squares %>
   </tbody>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_05_18_051944) do
+ActiveRecord::Schema.define(version: 2022_06_01_081100) do
 
   create_table "child_squares", force: :cascade do |t|
     t.integer "parent_square_id"
@@ -51,6 +51,7 @@ ActiveRecord::Schema.define(version: 2022_05_18_051944) do
     t.string "row_9"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.decimal "score", precision: 5, scale: 3
   end
 
   create_table "users", force: :cascade do |t|
