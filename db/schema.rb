@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_05_31_090201) do
+ActiveRecord::Schema.define(version: 2022_05_18_051944) do
 
   create_table "child_squares", force: :cascade do |t|
     t.integer "parent_square_id"
@@ -28,18 +28,6 @@ ActiveRecord::Schema.define(version: 2022_05_31_090201) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "contacts", force: :cascade do |t|
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
-  create_table "cotacts", force: :cascade do |t|
-    t.string "name", null: false
-    t.text "content", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
   create_table "favorites", force: :cascade do |t|
     t.integer "user_id", null: false
     t.integer "parent_square_id", null: false
@@ -48,11 +36,6 @@ ActiveRecord::Schema.define(version: 2022_05_31_090201) do
     t.index ["parent_square_id"], name: "index_favorites_on_parent_square_id"
     t.index ["user_id", "parent_square_id"], name: "index_favorites_on_user_id_and_parent_square_id", unique: true
     t.index ["user_id"], name: "index_favorites_on_user_id"
-  end
-
-  create_table "mailler_contacts", force: :cascade do |t|
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "parent_squares", force: :cascade do |t|
@@ -68,6 +51,7 @@ ActiveRecord::Schema.define(version: 2022_05_31_090201) do
     t.string "row_9"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.decimal "score", precision: 5, scale: 3
   end
 
   create_table "users", force: :cascade do |t|
