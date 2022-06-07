@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_05_18_051944) do
+ActiveRecord::Schema.define(version: 2022_06_06_084304) do
 
   create_table "child_squares", force: :cascade do |t|
     t.integer "parent_square_id"
