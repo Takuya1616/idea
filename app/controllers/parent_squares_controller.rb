@@ -5,7 +5,6 @@ class ParentSquaresController < ApplicationController
   def index
     @parent_square = ParentSquare.new
     @parent_squares = current_user.parent_squares.order('created_at DESC')
-    @parent_squares = ParentSquare.page(params[:page]).per(10).order('updated_at DESC')
     @parent_squares = current_user.parent_squares.page(params[:page]).per(10).order('updated_at DESC')
   end
 
@@ -13,6 +12,11 @@ class ParentSquaresController < ApplicationController
     @parent_square = ParentSquare.find(params[:id])
     #子マンダラートを呼び出す
     @child_squares = @parent_square.child_squares
+    if @parent_square.user == current_user
+        render "show"
+    else
+        redirect_to parent_squares_path
+    end
   end
 
 
@@ -20,6 +24,7 @@ class ParentSquaresController < ApplicationController
   def create
     @parent_square = ParentSquare.new(parent_square_params)
     @parent_square.user_id = current_user.id
+    @parent_square.score = Language.get_data(parent_square_params[:row_5])
     if @parent_square.save
       8.times do |child_square|
         ChildSquare.create(parent_square_id: @parent_square.id)
@@ -46,8 +51,11 @@ class ParentSquaresController < ApplicationController
 
   def destroy
     @parent_square = ParentSquare.find(params[:id])
-    @parent_square.destroy
-     redirect_to request.referer
+    if @parent_square.destroy == current_user
+      @parent_square.destroy
+    else
+      redirect_to request.referer
+    end
   end
 
    private

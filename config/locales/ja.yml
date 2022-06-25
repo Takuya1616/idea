@@ -1,0 +1,7 @@
+ja:
+  activerecord:
+    models:
+      parent_square: "親のマス"
+    attributes:
+      parent_square:
+        row_5: "メインテーマ"
